@@ -1,0 +1,22 @@
+-- Calculating change in Slugging Percentage (SLG) between 2020 and 2021 to compare with Fly Ball Rate (FBperc) in 2021.
+-- Hypothesis: Players with higher Fly Ball Rate in 2021 would be impacted greatest by change to the aerodynamics of the baseball and
+-- would subsequently reduce the player's Slugging Percentage.
+-- Data exported to Tableau to create visualization.
+-- Conclusion: No correlation between Fly Ball Rate and change in Slugging Percentage.
+-- *Note: Data as of May 27, 2021.
+
+USE baseball; 
+SELECT s21.name, s20.SLG AS SLG20, s21.SLG AS SLG21, FORMAT(s21.SLG-s20.SLG,3) AS SLGchange, concat(b21.FBperc,'%') AS FBperc21,
+	CASE
+		WHEN s21.SLG-s20.SLG > 0 THEN 'SLG Improve'
+        WHEN s21.SLG-s20.SLG < 0 THEN 'SLG Decline'
+        ELSE 'None'
+	END AS Trend
+-- , s20.SLG AS s20, b21.FB% AS FBperc21
+FROM stat_batting2021 s21
+JOIN stat_batting2020 s20
+	ON s21.playerid = s20.playerid
+JOIN bat_batting2021 b21
+	ON s21.playerid = b21.playerid
+WHERE s21.PA > 100
+ORDER BY FBperc21 DESC;
