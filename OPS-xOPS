@@ -3,15 +3,16 @@
 -- *Note: Data as of May 27, 2021.
 
 USE baseball;
-SELECT adv.name, adv.OBP, stat.xSLG, adv.OBP+stat.xSLG AS xOPS, adv.OPS, FORMAT(adv.SLG-stat.xSLG, 3) AS SLG_Diff, 
+SELECT adv.name, adv.OBP, stat.xSLG, adv.OBP+stat.xSLG AS xOPS, adv.OPS, FORMAT(adv.SLG-stat.xSLG, 3) AS OPS_Diff, 
 	CASE
 		WHEN OPS>adv.OBP+stat.xSLG THEN 'Overperforming'
 		WHEN OPS<adv.OBP+stat.xSLG THEN 'Underperforming'
 		ELSE ' '
 	END AS Performance, adv.PA
-FROM adv_batting AS adv
-JOIN stat_batting AS stat
+FROM adv_batting2021 AS adv
+JOIN stat_batting2021 AS stat
 	ON adv.playerid = stat.playerid
 WHERE OPS > 0.85
-ORDER BY SLG_Diff DESC
+ORDER BY OPS_Diff DESC
+
 
