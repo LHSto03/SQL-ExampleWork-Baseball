@@ -12,7 +12,6 @@ SELECT s21.name, s20.SLG AS SLG20, s21.SLG AS SLG21, FORMAT(s21.SLG-s20.SLG,3) A
         WHEN s21.SLG-s20.SLG < 0 THEN 'SLG Decline'
         ELSE 'None'
 	END AS Trend
--- , s20.SLG AS s20, b21.FB% AS FBperc21
 FROM stat_batting2021 s21
 JOIN stat_batting2020 s20
 	ON s21.playerid = s20.playerid
