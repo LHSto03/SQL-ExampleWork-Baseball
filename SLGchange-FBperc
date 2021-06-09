@@ -9,8 +9,8 @@ USE baseball;
 SELECT s21.name, s20.SLG AS SLG20, s21.SLG AS SLG21, FORMAT(s21.SLG-s20.SLG,3) AS SLGchange, concat(b21.FBperc,'%') AS FBperc21,
 	CASE
 		WHEN s21.SLG-s20.SLG > 0 THEN 'SLG Improve'
-        WHEN s21.SLG-s20.SLG < 0 THEN 'SLG Decline'
-        ELSE 'None'
+        	WHEN s21.SLG-s20.SLG < 0 THEN 'SLG Decline'
+        	ELSE 'None'
 	END AS Trend
 FROM stat_batting2021 s21
 JOIN stat_batting2020 s20
